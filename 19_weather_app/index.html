@@ -14,22 +14,56 @@
 
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, #2c3e50, #34495e, #1a252f);
-            background-size: 200% 200%;
-            animation: blueGradient 10s ease infinite;
+            background: linear-gradient(135deg, #74ebd5, #acb6e5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .forecast-title h1 {
+            font-size: 24px;
+            color: #333;
+            white-space: nowrap;
+        }
+
+        .coffee-button {
+            padding: 10px 20px;
+            background: #ffdd00;
+            color: #333;
+            text-decoration: none;
+            border-radius: 15px;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+
+        .coffee-button:hover {
+            background: #ffd700;
+        }
+
+        /* Main Content Styles */
+        .main-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
-            transition: z-index 0s; /* Instant z-index change */
-        }
-
-        @keyframes blueGradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            width: 100%;
+            max-width: 1200px;
+            flex-grow: 1;
         }
 
         .weather-container {
@@ -37,109 +71,80 @@
             border-radius: 20px;
             padding: 30px;
             width: 100%;
-            max-width: 450px;
+            max-width: 600px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             position: relative;
-            z-index: 2;
-            transition: z-index 0s; /* Instant z-index change */
+            overflow: hidden;
+            z-index: 1;
         }
 
-        /* Rain Animation */
-        body.rain::before,
-        body.rain::after {
-            content: '';
+        .weather-bg {
             position: absolute;
-            width: 2px;
-            height: 20px;
-            background: #ffffff;
-            animation: rainDrop 0.5s linear infinite;
-            z-index: 3; /* Above container when active */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            z-index: -1;
+            background-size: cover;
+            background-position: center;
+            transition: opacity 0.5s ease;
         }
 
-        body.rain::before {
-            left: 20%;
-            animation-delay: 0s;
+        .weather-bg.active {
+            opacity: 0.3;
         }
 
-        body.rain::after {
-            left: 60%;
-            animation-delay: 0.2s;
+        .rain {
+            background: url('https://images.pexels.com/photos/235648/pexels-photo-235648.jpeg');
+            animation: rainAnimation 2s linear infinite;
         }
 
-        @keyframes rainDrop {
-            0% { transform: translateY(-100vh); }
-            100% { transform: translateY(100vh); }
+        .sunny {
+            background: url('https://images.unsplash.com/photo-1504805572947-7e2570a84243');
+            animation: sunAnimation 10s linear infinite;
         }
 
-        /* Sunny Animation */
-        body.sunny::before {
-            content: '';
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            background: radial-gradient(circle, #f7cb46 40%, transparent 70%);
-            border-radius: 50%;
-            top: 10%;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: sunPulse 2s ease-in-out infinite;
-            z-index: 3; /* Above container when active */
+        .cloudy {
+            background: url('https://cdn.pixabay.com/photo/2017/07/31/11/44/clouds-2558288_1280.jpg');
+            animation: cloudAnimation 20s linear infinite;
         }
 
-        @keyframes sunPulse {
-            0% { transform: translateX(-50%) scale(1); }
-            50% { transform: translateX(-50%) scale(1.1); }
-            100% { transform: translateX(-50%) scale(1); }
+        @keyframes rainAnimation {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
         }
 
-        /* Cloudy Animation */
-        body.cloudy::before,
-        body.cloudy::after {
-            content: '';
-            position: absolute;
-            background: #bdc3c7;
-            border-radius: 50%;
-            z-index: 3; /* Above container when active */
+        @keyframes sunAnimation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
-        body.cloudy::before {
-            width: 80px;
-            height: 40px;
-            top: 20%;
-            left: -100px;
-            animation: cloudMove 15s linear infinite;
-        }
-
-        body.cloudy::after {
-            width: 100px;
-            height: 50px;
-            top: 10%;
-            left: -120px;
-            animation: cloudMove 18s linear infinite;
-        }
-
-        @keyframes cloudMove {
-            0% { transform: translateX(-200px); }
-            100% { transform: translateX(100vw); }
+        @keyframes cloudAnimation {
+            0% { background-position: 0 0; }
+            100% { background-position: 200% 0; }
         }
 
         .search-box {
             display: flex;
-            gap: 10px;
+            gap: 15px;
             margin-bottom: 30px;
             position: relative;
             z-index: 2;
+            justify-content: center;
         }
 
         #city-input {
             flex: 1;
-            padding: 12px 15px;
+            padding: 15px 20px;
             border: none;
             border-radius: 25px;
-            font-size: 16px;
+            font-size: 18px;
             outline: none;
             background: #f0f2f5;
             transition: all 0.3s ease;
+            max-width: 400px;
         }
 
         #city-input:focus {
@@ -148,12 +153,12 @@
         }
 
         #search-button {
-            padding: 12px 25px;
+            padding: 15px 30px;
             border: none;
             border-radius: 25px;
             background: #4a90e2;
             color: white;
-            font-size: 16px;
+            font-size: 18px;
             cursor: pointer;
             transition: background 0.3s ease;
         }
@@ -194,6 +199,49 @@
             font-weight: 400;
         }
 
+        /* Footer Styles */
+        footer {
+            position: fixed;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            color: #333;
+            font-size: 14px;
+            padding: 10px;
+        }
+
+        footer span {
+            margin: 0 5px;
+        }
+
+        .twitter-link {
+            color: #333;
+            text-decoration: none;
+            margin-left: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .twitter-link:hover {
+            color: #1DA1F2; /* Twitter blue */
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .main-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .weather-container {
+                max-width: 450px;
+            }
+        }
+
         @media (max-width: 480px) {
             .weather-container {
                 padding: 20px;
@@ -201,6 +249,11 @@
 
             .search-box {
                 flex-direction: column;
+                gap: 10px;
+            }
+
+            #city-input {
+                max-width: 100%;
             }
 
             #search-button {
@@ -214,19 +267,37 @@
     </style>
 </head>
 <body>
-    <div class="weather-container">
-        <div class="search-box">
-            <input id="city-input" type="text" placeholder="Enter Your City" />
-            <button id="search-button">Search</button>
+    <!-- Header -->
+    <header>
+        <div class="forecast-title">
+            <h1>Weather Forecast</h1>
         </div>
+        <a href="https://buymeacoffee.com/harmitpate5" class="coffee-button" target="_blank">Buy Me a Coffee</a>
+    </header>
 
-        <div class="weather-info">
-            <h1 id="city-name">Canada, Ontario - "Toronto"</h1>
-            <h2 id="condition">Clear</h2>
-            <h3 id="city-temp">13° C</h3>
-            <h4 id="city-time">localtime</h4>
+    <!-- Main Content -->
+    <div class="main-container">
+        <div class="weather-container">
+            <div class="weather-bg" id="weather-bg"></div>
+            <div class="search-box">
+                <input id="city-input" type="text" placeholder="Enter Your City" />
+                <button id="search-button">Search</button>
+            </div>
+
+            <div class="weather-info">
+                <h1 id="city-name"></h1>
+                <h2 id="condition"></h2>
+                <h3 id="city-temp"></h3>
+                <h4 id="city-time"></h4>
+            </div>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer>
+        Made in Canada <span>🇨🇦</span>--- by Harmit Patel
+        <a href="https://x.com/1410HP" class="twitter-link" target="_blank" title="Follow me on X">𝕏</a>
+    </footer>
 
     <script>
         const button = document.getElementById('search-button');
@@ -235,8 +306,7 @@
         const citycondition = document.getElementById('condition');
         const citytime = document.getElementById('city-time');
         const citytemp = document.getElementById('city-temp');
-        const body = document.body;
-        const container = document.querySelector('.weather-container');
+        const weatherBg = document.getElementById('weather-bg');
 
         async function getData(cityName) {
             const promise = await fetch(`http://api.weatherapi.com/v1/current.json?key=30c20826b8ad4d42843221819250204&q=${cityName}&aqi=yes`);
@@ -244,58 +314,49 @@
         }
 
         function updateWeatherBackground(condition) {
-            // Reset body classes and adjust z-index
-            body.className = '';
-            body.style.zIndex = '0'; // Background behind everything during animation
-            container.style.zIndex = '1'; // Container below animations
-            
-            // Map weather conditions to animations
+            weatherBg.className = 'weather-bg';
             const conditionLower = condition.toLowerCase();
             if (conditionLower.includes('rain') || conditionLower.includes('shower')) {
-                body.classList.add('rain');
+                weatherBg.classList.add('rain', 'active');
             } else if (conditionLower.includes('sun') || conditionLower.includes('clear')) {
-                body.classList.add('sunny');
+                weatherBg.classList.add('sunny', 'active');
             } else if (conditionLower.includes('cloud') || conditionLower.includes('overcast')) {
-                body.classList.add('cloudy');
+                weatherBg.classList.add('cloudy', 'active');
             }
         }
 
-        async function handleSearch() {
-            const value = input.value.trim();
-            if (!value) return; // Prevent empty searches
-            
+        // Function to fetch weather data
+        async function fetchWeather() {
+            const value = input.value.trim(); // Trim whitespace
+            if (value === '') {
+                alert('Please enter a city name');
+                return;
+            }
             try {
                 const result = await getData(value);
                 if (result.error) {
-                    alert('City not found!');
-                    body.className = ''; // Reset animations on error
-                    body.style.zIndex = ''; // Reset z-index
-                    container.style.zIndex = '2';
+                    alert('City not found. Please try again.');
                     return;
                 }
                 cityname.innerText = `${result.location.name}, ${result.location.region} - ${result.location.country}`;
                 citycondition.innerText = `${result.current.condition.text}`;
                 citytime.innerText = `${result.location.localtime}`;
                 citytemp.innerText = `${result.current.temp_c} °C`;
-                
-                // Update weather animation
                 updateWeatherBackground(result.current.condition.text);
             } catch (error) {
                 console.error('Error fetching weather data:', error);
-                alert('Something went wrong. Please try again.');
-                body.className = ''; // Reset animations on error
-                body.style.zIndex = ''; // Reset z-index
-                container.style.zIndex = '2';
+                alert('An error occurred while fetching the weather data. Please try again.');
             }
         }
 
-        // Button click event
-        button.addEventListener('click', handleSearch);
+        // Event listener for the Search button click
+        button.addEventListener('click', fetchWeather);
 
-        // Enter key event
+        // Event listener for the Enter key press in the input field
         input.addEventListener('keypress', (event) => {
             if (event.key === 'Enter') {
-                handleSearch();
+                event.preventDefault(); // Prevent form submission if inside a form
+                fetchWeather();
             }
         });
     </script>

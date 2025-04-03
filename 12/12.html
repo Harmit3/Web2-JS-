@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document for DOM</title>
+</head>
+<body>
+    <h3>DOM ---- Document Object Model</h3>
+    <script>
+
+        //alert ----------> we can use it while wanna say on any click button and go ahead
+        alert("Are you sure you wanna go ahead?");  
+
+
+
+
+        //prompt ----------> it is type of alert but you can take input inside it
+        //                   also put default values inside that    prompt("What's you name?",'Harmit');     
+        prompt("What's you name?",'Harmit');     
+        //                   you can store this value in variable and do experiment in this. Fo eg:- we print the input value on the console
+        const hello= prompt("What's you name?");   
+        console.log(hello);
+
+
+
+        // There are two objects avaible in DOM avaible at window level.
+
+        // 1. Window Object   ----> which is browser's window where we can show out html code
+        //                    ----> This is useful when we need to do when user reload page first time do this,second time do this etc.
+        //                    ----> has global scope
+        console.log(window);  //you can see the object window in the console 
+
+
+        //console.log("Harmit"); is actually window.console.log("Harmit") will give same output because  by default it is a window and we see js output under window
+        //so anything happens on window is under window. like prompt,alert is window.prompt() or window.alert()
+        console.log("Harmit") 
+        window.console.log("Harmit");
+
+
+
+
+
+
+        //2.document  ----->  is object availble under window object
+        //          ----->  window.document and console.log(window.document); both are same which will return out document's code under console
+        //          ----->  in js, whatever you write is avaible in document object
+        //          -----> document.tile is window.document.title
+        window.document;
+        console.log(window.document);
+        //          ----->  so for eg. if you wanna access anything from out code you can get it by document and also manipulate it
+        console.log(document.title);  //will print title
+        document.title="ABCD";        //when compiler came here then title change on DOM, otherwise it will remain same
+        console.log(document.title);  //will print ABCD now. and also seen under document if we do console.log
+
+        console.log(document.body);  //will print the body of our document
+
+        document.write("This is hacked.");  //will print on DOM
+
+
+        // for eg:- you can take inut from user and write on DOM
+        const name=prompt("What's your good name?");
+        document.write("Hello "+name);
+
+
+        
+    </script>
+</body>
+</html>

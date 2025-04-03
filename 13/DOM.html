@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM manipulation by query selector</title>
+</head>
+<body>
+      <nav class="block">
+        <p class="paragraph">Welcome to my website</p>
+      </nav>
+   
+      <div class="block">
+        <h4>Hey There, My name is <span id="username">Harmit Patel</span>:) </h4>
+        <p class="block"> Here is a code for you. </p>
+        <pre><code>console.log("Hey there")</code></pre>
+      </div>
+
+      <div>
+        <div>
+            <h3>This is div2.</h3>
+        </div>
+      </div>
+
+
+      <script> 
+          // alert("Hey there I am an alert");      -----------> pop up come out when say alert and ok
+ 
+          //prompt("What's your name");             -----------> pop up come out with input option
+
+          //prompt("What's your name",'Harmit Patel');   ------> you can also put default value in prompt
+          
+          //const value=prompt("What's your name");  
+          //console.log(value);                       -------> this will print whatevr you enter in prompt
+
+
+          //   query selector     ---------> whichever get first, manipulate that 
+
+           /* in css, we style  the  elements by selectors
+              - tag
+              - # id
+              - . class
+            */
+
+            //how you will select the body tag in document selector
+           const b= document.querySelector('body');        //selcted body tag and print it in console. Also, when you hover it you can see that b is HTMLBODYELEMENT 
+           console.log(b);
+
+           //if you wanna see the content of DOM you can do b.innerHTML and it will print body avaible in our document and print it as a string
+           //you can also perform regex operations on it and abstract the information
+           console.log(b.innerHTML);   
+
+
+           // b.innerHTML="<h1>Hacked!!</h1>";               //can access that document via innerHTML tag and can print Hacked!! on DOM  and also when you see in element you see only <h1>Hacked!!</h1> in body code not original body code
+           // so, here if we delete the script then  we will get back original code but when js interupt we can manipulate the DOM code via querySelector.
+
+
+           //can print div tag as well
+           const c= document.querySelector('div');
+           console.log(c.innerHTML);
+           
+           //you can manipulate div
+          // c.innerHTML="<h1>This is hacked!</h1>";   //will print on place of div
+
+           //assignment
+           const e= document.querySelector('pre');
+           e.innerHTML="<code>alert('Hello');</code>";
+
+          //if we have two div then it will select 1st div and change innerHTML.(added div in body and then try.)
+          //to select all div, you can use queryselctorAll
+
+
+          const d= document.querySelectorAll('div');
+          d.innerHTML="<h1>This is hacked twice!!</h1>";
+
+           
+
+
+          /* now,let's see id(#)
+
+            in div, <h4>Hey There, My name is <span class="username">Harmit Patel</span>:)</h4>, we wanna change the name Harmit Patel to John doe
+            which can be done by id(#) "username" 
+
+            id is unique o never ever repeat id in DOM, it must be unique. If you repeat it you will get a warning.However,by default it selects the 1st id element.
+          */
+          const f=document.querySelector('#username');
+          console.log(f.innerText);   //innerHTML use when you have html tags if not then use innerText
+          f.innerText="John Doe";
+
+
+          /*
+          
+             now,let's see class(.)
+        
+          */
+          
+          const classes=document.querySelector(".block");
+          console.log(classes);     //by default it will print the first classes
+          console.log(classes.innerHTML);
+          console.log(classes.innerText);
+         
+          //also, you can use the children property to access its child and can also use parent element
+          const divs=document.querySelector("div");
+          console.log(divs.children);        //by default, it will pick the first div and return its children
+
+          const g=divs.parentElement;       //parent is body and siblings is nav
+          console.log(g); 
+    
+          console.log(g.children);     //will print the child of g. will get additional script tag which is from live server injector which can be ignored.
+
+
+
+          /******************************************************************************************************************************/
+          //by default, querySelector picks first element while querySelectorAll picks all element and make it as an array.
+          /******************************************************************************************************************************/
+          const h=document.querySelectorAll(".block");
+          h.forEach((e)=>{
+            console.log(e.innerHTML);
+          });                                  //will return block class inner content; which is in array since forEach is used but print as string due to console.log()
+
+
+
+      </script>
+</body>
+</html>

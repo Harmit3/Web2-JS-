@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM manipulation by query selector</title>
+
+    <style>
+
+        .red-class{
+            color: red;
+        } 
+        .underline{
+            text-decoration: underline;
+        }
+        .bg{
+            background-color: yellow;
+        }
+    </style>
+    </head>
+<body>
+      <nav class="block">
+        <p class="paragraph">Welcome to my website</p>
+      </nav>
+   
+      <div class="block">
+        <h4>Hey There, My name is <span  id="username" class="bg">Harmit Patel</span> :) </h4>
+        <p class="block"> Here is a code for you. </p>
+        <pre><code>console.log("Hey there")</code></pre>
+      </div>
+
+      <div>
+        <h4>Hey There, My name is <span  id="username" class="bg">Harmit Patel</span> :) </h4>
+        <p class="block"> Here is a code for you. </p>
+        <pre><code>console.log("Hey there")</code></pre>
+      </div>
+
+      <div class="remove1">
+        <div>
+            <h3>This is div2.</h3>
+        </div>
+      </div>
+      <script> 
+
+      const el=document.querySelector('#username');
+      el.innerHTML="DIG SOLANKI";
+
+      const el1=document.getElementById('username');  //----------> don't need to use #(id),.(class) in getElementBy
+      console.log(el1);
+      console.log(el1.innerText);   // -------------> will print earlier text inside this id
+      el1.innerHTML="Dignesh";
+      console.log(el1.innerText); //-------->now, this will print Dignesh
+
+      //now,if you wanna make it red you can make class in style and apply that on the span
+      //but to do it though the js classList which will take an arguments as an array
+      //so, if you try to print console.log(el1.classList); you will get array of classList inside the console. So, you can easily forEach that
+      
+
+      el1.classList.add('red-class','underline');     //this will make el1 element red and can also add multiple classes. when you try to inspect it in console you can see it both class written in <span id='' class=''></span>
+
+      //you can also remove the classes using JS
+      el1.classList.remove('bg');
+
+
+      //you can also add inline style using JS which will stnc. with console in element if you see the ocde you will get inline style over there
+      const el2=document.querySelector('.paragraph');
+      el2.style.textDecoration='underline';          //can directly use style here like text-decoratiomn:underline,bg-coloe:red; etc.
+      el2.style.backgroundColor='gray';
+      el2.style.color='yellow';
+      console.log(el2.parentElement.innerHTML);  //will print proper <p> tag with in styling that we added through js.
+     
+      // el2.setAttribute('arial',"123"); -------> this will set to inbuilt attribute arial:"123";
+
+      //  and on parent class you can also add styles through js
+      el2.parentElement.style.border='2px solid black';
+      console.log(el2.parentElement);
+
+      //you can also remove element through document element  method
+      el.remove();      //can't see content of el now on DOM
+
+
+
+
+      //how we can select the element through class except document.querySelector(".class")
+     
+      const el4=document.getElementsByClassName('block');
+      console.log(el4);          //--------->will return in array(HTML collection) related with this class in array
+      
+      //how you can make the element color blue of this particular class
+      //el4.style.backgroundColor='blue';  -----> this leads to an error
+
+      //but as elements in classes stored in array so you can loop on each and do that
+      
+      for(let i=0;i<el4.length;i++){        // this will print elements at index items
+        console.log(el4.item(i));
+      }
+
+      // for background you can do something like this
+      for(let i=0;i<el4.length;i++){        
+        el4.item(i).style.backgroundColor='crimson';
+      }
+
+
+      const el5=document.getElementsByClassName('remove1')[0];  //because it will not remove until you dont specify even if it is only one element.
+      //  So, another way is to remove it by forEach on that and put el5.remove(); inside that
+      console.log(el5);
+      el5.remove();
+
+
+      </script>
+</body>
+</html>

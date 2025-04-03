@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promises</title>
+</head>
+
+<body>
+    <nav class="block">
+        <p class="paragraph">Welcome to my website</p>
+    </nav>
+
+    <div class="block">
+        <h4 id="nameBlock">Hey There, My name is <span id="username">Harmit Patel</span>:) </h4>
+        <p class="paragraph"> Here is a code for you. </p>
+        <pre><code>console.log("Hey there")</code></pre>
+    </div>
+
+    <button> Click Me</button>
+
+    <script>
+        /*******************  what are Promises and async await in js?  ***********************/
+
+        /*******************  we need to understand Synchronous task and Asynchronous task.    ***********************/
+
+        //This is synchronous task because it will run line by line and get the result quickly.
+        let a=10;
+        let b=20;
+        let result=a+b;
+        console.log(result);
+
+         /*************************************************************************************************************************************/  
+        //Now, we have asynchronous task which means, if you have a data whoch come from any server 
+        //and we don't know how much time it will take to fetch it in our machine through js.
+        //So, this kinda task won't give you instant result, that depends on many things like internet 
+        //speed,server errors and etc. so this kinda task is called async. task.
+
+        //And, this kinda task returns the pomises.
+        /*************************************************************************************************************************************/  
+
+        //https://jsonplaceholder.typicode.com/posts
+
+
+        // we use fetch() function to fetch the data from the any url.
+        /*  let resultFromServer=await fetch('https://jsonplaceholder.typicode.com/posts');
+            Console.log(resultFromServer);       //-------------------> this will return a promise in console. */
+
+
+        // and this promise could either resolve or denied. But, I want to wait  until I don't get a result.
+        // So, if you add await then you'll get an error because await can be valid in async functions only.
+        // So, you need to make async function and need to add awaIt there.
+
+
+        //Here, we already let js know that, this is async. function means you don't need to run it with original thread in a loop because it will take a time.
+        async function getData(){
+            let resultFromServer=await fetch('https://jsonplaceholder.typicode.com/posts');
+            console.log(await resultFromServer.json());     //------------> .json() will parse the json data and add await so js not stuck here to get a result.
+        }
+        getData();      //-------------> by this, you will get a promise response.
+
+        //if you print let a=10;   let b=20;     let result=a+b;    console.log(result); 
+        // then it will give you 30 first and then give promise. Because it will run from top-to-bottom but 
+        // because it was async function then it will not wait for it and just go to next for execution,execute it 
+        // and whenever you get result fot async await then it will print it.
+       
+       /******************************************************************************************************
+        one more way to do it the same thing without using await and async function is use then
+       ******************************************************************************************************/
+
+       //for eg.----------------->here,u use    catch(cb),finally(cb),then(cb)  
+       // ----------> this means that if this promise is resolved (got proper result), then callback run.
+       // ----------> and if u also get an error in fetching data then error will catch in catch block.
+       // ----------> finally will always run no matters if then or catch runs or not.
+       //but, this is not a prefereed way.
+       
+       fetch('https://jsonplaceholder.typicode.com/posts')
+        .then((data)=>{console.log(data)})
+        .catch((error)=>console.log(error))
+       console.log(result);
+                
+
+    </script>
+
+</body>
+
+</html>

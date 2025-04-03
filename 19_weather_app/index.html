@@ -1,66 +1,303 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #2c3e50, #34495e, #1a252f);
+            background-size: 200% 200%;
+            animation: blueGradient 10s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: z-index 0s; /* Instant z-index change */
+        }
+
+        @keyframes blueGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .weather-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+            transition: z-index 0s; /* Instant z-index change */
+        }
+
+        /* Rain Animation */
+        body.rain::before,
+        body.rain::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 20px;
+            background: #ffffff;
+            animation: rainDrop 0.5s linear infinite;
+            z-index: 3; /* Above container when active */
+        }
+
+        body.rain::before {
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        body.rain::after {
+            left: 60%;
+            animation-delay: 0.2s;
+        }
+
+        @keyframes rainDrop {
+            0% { transform: translateY(-100vh); }
+            100% { transform: translateY(100vh); }
+        }
+
+        /* Sunny Animation */
+        body.sunny::before {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #f7cb46 40%, transparent 70%);
+            border-radius: 50%;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: sunPulse 2s ease-in-out infinite;
+            z-index: 3; /* Above container when active */
+        }
+
+        @keyframes sunPulse {
+            0% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.1); }
+            100% { transform: translateX(-50%) scale(1); }
+        }
+
+        /* Cloudy Animation */
+        body.cloudy::before,
+        body.cloudy::after {
+            content: '';
+            position: absolute;
+            background: #bdc3c7;
+            border-radius: 50%;
+            z-index: 3; /* Above container when active */
+        }
+
+        body.cloudy::before {
+            width: 80px;
+            height: 40px;
+            top: 20%;
+            left: -100px;
+            animation: cloudMove 15s linear infinite;
+        }
+
+        body.cloudy::after {
+            width: 100px;
+            height: 50px;
+            top: 10%;
+            left: -120px;
+            animation: cloudMove 18s linear infinite;
+        }
+
+        @keyframes cloudMove {
+            0% { transform: translateX(-200px); }
+            100% { transform: translateX(100vw); }
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        #city-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            outline: none;
+            background: #f0f2f5;
+            transition: all 0.3s ease;
+        }
+
+        #city-input:focus {
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #search-button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            background: #4a90e2;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        #search-button:hover {
+            background: #357abd;
+        }
+
+        .weather-info {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        #city-name {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        #condition {
+            font-size: 22px;
+            color: #666;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        #city-temp {
+            font-size: 48px;
+            color: #4a90e2;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+
+        #city-time {
+            font-size: 18px;
+            color: #777;
+            font-weight: 400;
+        }
+
+        @media (max-width: 480px) {
+            .weather-container {
+                padding: 20px;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            #search-button {
+                padding: 12px;
+            }
+
+            #city-temp {
+                font-size: 36px;
+            }
+        }
+    </style>
 </head>
-
 <body>
-    <input id="city-input" type="text" placeholder="Enter Your City" />
-    <button id="search-button">Search</button>
+    <div class="weather-container">
+        <div class="search-box">
+            <input id="city-input" type="text" placeholder="Enter Your City" />
+            <button id="search-button">Search</button>
+        </div>
 
-    <div>
-        <h1 id="city-name">
-            Canada,Ontario -"Toronto"
-        </h1>
-        <h1 id="condition">
-            Clear
-        </h1>
-        <h2 id="city-time">
-            localtime
-        </h2>
-        <h3 id="city-temp">
-            13° C
-        </h3>
-        
-
-
+        <div class="weather-info">
+            <h1 id="city-name">Canada, Ontario - "Toronto"</h1>
+            <h2 id="condition">Clear</h2>
+            <h3 id="city-temp">13° C</h3>
+            <h4 id="city-time">localtime</h4>
+        </div>
     </div>
 
     <script>
         const button = document.getElementById('search-button');
         const input = document.getElementById('city-input');
-
-        const cityname=document.getElementById('city-name');
-        const citycondition=document.getElementById('condition');
-        const citytime=document.getElementById('city-time');
-        const citytemp=document.getElementById('city-temp');
+        const cityname = document.getElementById('city-name');
+        const citycondition = document.getElementById('condition');
+        const citytime = document.getElementById('city-time');
+        const citytemp = document.getElementById('city-temp');
+        const body = document.body;
+        const container = document.querySelector('.weather-container');
 
         async function getData(cityName) {
             const promise = await fetch(`http://api.weatherapi.com/v1/current.json?key=30c20826b8ad4d42843221819250204&q=${cityName}&aqi=yes`);
             return await promise.json();
         }
 
-        button.addEventListener('click', async () => {
-            const value = input.value;
-            const result = await getData(value);
-            console.log(result);
-            cityname.innerText=`${result.location.name},${result.location.region} - ${result.location.country}`;
-            citycondition.innerText=`${result.current.condition.text}`;
-            citytime.innerText=`${result.location.localtime}`;
-            citytemp.innerText=`${result.current.temp_c} °C`;
-
-
+        function updateWeatherBackground(condition) {
+            // Reset body classes and adjust z-index
+            body.className = '';
+            body.style.zIndex = '0'; // Background behind everything during animation
+            container.style.zIndex = '1'; // Container below animations
+            
+            // Map weather conditions to animations
+            const conditionLower = condition.toLowerCase();
+            if (conditionLower.includes('rain') || conditionLower.includes('shower')) {
+                body.classList.add('rain');
+            } else if (conditionLower.includes('sun') || conditionLower.includes('clear')) {
+                body.classList.add('sunny');
+            } else if (conditionLower.includes('cloud') || conditionLower.includes('overcast')) {
+                body.classList.add('cloudy');
+            }
         }
-    );
 
+        async function handleSearch() {
+            const value = input.value.trim();
+            if (!value) return; // Prevent empty searches
+            
+            try {
+                const result = await getData(value);
+                if (result.error) {
+                    alert('City not found!');
+                    body.className = ''; // Reset animations on error
+                    body.style.zIndex = ''; // Reset z-index
+                    container.style.zIndex = '2';
+                    return;
+                }
+                cityname.innerText = `${result.location.name}, ${result.location.region} - ${result.location.country}`;
+                citycondition.innerText = `${result.current.condition.text}`;
+                citytime.innerText = `${result.location.localtime}`;
+                citytemp.innerText = `${result.current.temp_c} °C`;
+                
+                // Update weather animation
+                updateWeatherBackground(result.current.condition.text);
+            } catch (error) {
+                console.error('Error fetching weather data:', error);
+                alert('Something went wrong. Please try again.');
+                body.className = ''; // Reset animations on error
+                body.style.zIndex = ''; // Reset z-index
+                container.style.zIndex = '2';
+            }
+        }
 
+        // Button click event
+        button.addEventListener('click', handleSearch);
 
-
-
+        // Enter key event
+        input.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                handleSearch();
+            }
+        });
     </script>
 </body>
-
 </html>

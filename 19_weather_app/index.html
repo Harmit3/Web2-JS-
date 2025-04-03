@@ -96,17 +96,18 @@
         }
 
         .rain {
-            background: url('https://images.pexels.com/photos/235648/pexels-photo-235648.jpeg');
+            background: url('https://images.pexels.com/photos/235648/pexels-photo-235648.jpeg') repeat;
             animation: rainAnimation 2s linear infinite;
         }
 
         .sunny {
-            background: url('https://images.unsplash.com/photo-1504805572947-7e2570a84243');
+            background: url('https://images.unsplash.com/photo-1504805572947-7e2570a84243') no-repeat center center;
+            background-size: cover;
             animation: sunAnimation 10s linear infinite;
         }
 
         .cloudy {
-            background: url('https://cdn.pixabay.com/photo/2017/07/31/11/44/clouds-2558288_1280.jpg');
+            background: url('https://cdn.pixabay.com/photo/2017/07/31/11/44/clouds-2558288_1280.jpg') repeat;
             animation: cloudAnimation 20s linear infinite;
         }
 
@@ -304,8 +305,8 @@
         const input = document.getElementById('city-input');
         const cityname = document.getElementById('city-name');
         const citycondition = document.getElementById('condition');
-        const citytime = document.getElementById('city-time');
         const citytemp = document.getElementById('city-temp');
+        const citytime = document.getElementById('city-time');
         const weatherBg = document.getElementById('weather-bg');
 
         async function getData(cityName) {
@@ -314,13 +315,24 @@
         }
 
         function updateWeatherBackground(condition) {
+            // Reset the classes to start fresh
             weatherBg.className = 'weather-bg';
+
+            // Convert condition to lowercase for easier comparison
             const conditionLower = condition.toLowerCase();
-            if (conditionLower.includes('rain') || conditionLower.includes('shower')) {
+
+            // Log the condition for debugging
+            console.log('Weather condition:', conditionLower);
+
+            // Apply the appropriate background and animation based on the condition
+            if (conditionLower.includes('rain') || conditionLower.includes('shower') || conditionLower.includes('drizzle')) {
                 weatherBg.classList.add('rain', 'active');
             } else if (conditionLower.includes('sun') || conditionLower.includes('clear')) {
                 weatherBg.classList.add('sunny', 'active');
-            } else if (conditionLower.includes('cloud') || conditionLower.includes('overcast')) {
+            } else if (conditionLower.includes('cloud') || conditionLower.includes('overcast') || conditionLower.includes('mist') || conditionLower.includes('fog')) {
+                weatherBg.classList.add('cloudy', 'active');
+            } else {
+                // Default to cloudy if the condition doesn't match
                 weatherBg.classList.add('cloudy', 'active');
             }
         }
@@ -340,8 +352,8 @@
                 }
                 cityname.innerText = `${result.location.name}, ${result.location.region} - ${result.location.country}`;
                 citycondition.innerText = `${result.current.condition.text}`;
-                citytime.innerText = `${result.location.localtime}`;
                 citytemp.innerText = `${result.current.temp_c} °C`;
+                citytime.innerText = `${result.location.localtime}`;
                 updateWeatherBackground(result.current.condition.text);
             } catch (error) {
                 console.error('Error fetching weather data:', error);

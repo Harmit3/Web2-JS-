@@ -37,5 +37,5 @@ button.addEventListener('click', async () => {         //here,we need to fetch l
     navigator.geolocation.getCurrentPosition(getLocation, failedToGetLocation);  //will show suceess calback or failed callback
    
 
- 
+    
 });

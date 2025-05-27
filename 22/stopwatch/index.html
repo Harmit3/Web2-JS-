@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h1>Time left:<span id="show-time"></span></h1>
+    <input id="time" type='number' placeholder="Enter the time in seconds " />
+    <button id="btn">Start Now</button>
+
+
+
+
+    <script>
+        const showTime = document.getElementById('show-time');
+        const time = document.getElementById('time');
+        const btn = document.getElementById('btn');
+        let id = null;
+
+
+        btn.addEventListener('click', () => {
+            let count = time.value;  //10
+
+            if(isNaN(count) || count <= 0){
+                alert('Please enter a valid positive number');
+                return;
+            }
+
+            if(id){
+                clearInterval(id);
+            }
+
+            showTime.innerText=count; //=10
+            
+            id=setInterval(()=>{
+                count--;
+                showTime.innerText=count;
+                if(count<=0){
+                    clearInterval(id);
+                    showTime.innerText='Time\'s up !!!!!!!!';
+                }
+            },1000);
+        });
+    </script>
+</body>
+
+</html>

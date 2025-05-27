@@ -31,7 +31,7 @@
              
              /*if we want that name on the same time when we enter in input text and press click me then got display on DOM and in storage as well then you can use window.location or location.reload*/
              location.reload(); //-------> so by this, you dont need to refresh the page manually it will do it self and run below function.
-             /*if you don't do this then valuw will go on local storage but can't display on the DOM , but after reload it can be shown but by location.reload() it will show up without refresh*/ 
+             /*if you don't do this then value will go on local storage but can't display on the DOM , but after reload it can be shown but by location.reload() it will show up without refresh*/ 
              
          });
  

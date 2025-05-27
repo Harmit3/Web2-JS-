@@ -339,7 +339,7 @@
 
         // Function to fetch weather data
         async function fetchWeather() {
-            const value = input.value.trim(); // Trim whitespace
+            const value = input.value.trim(); // Trim whitespace and input.value will fetch the input from input variable
             if (value === '') {
                 alert('Please enter a city name');
                 return;

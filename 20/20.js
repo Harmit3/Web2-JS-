@@ -1,6 +1,6 @@
- /*      what is locla storage in js??      
+ /*      what is local storage in js??      
 
-        In any browser, you will get storage to store data permenently liewise user's token,name or any settings.
+        In any browser, you will get storage to store data permenently likewise user's token,name or any settings.
         You can see this storage via inspect------> Application(you can see the local storage)
 
             
@@ -26,11 +26,12 @@
          const username=document.getElementById('username');
  
          button.addEventListener('click', () => {
-             const value = uname.value;                  /*const value=uname.value;       leads to error b/c getElementById will tale first username while id shoudl be diff   */
+             const value = uname.value;                  /*const value=uname.value;       leads to error b/c getElementById will take first username while id should be diff.   */
              localStorage.setItem('name', value);       /*here,in localStorage it will set name as key and ans as pair and remain there even you are refreshed.*/
              
-             /*if we want that on the same time when we enter in input text and press click me then got display on DOM and in storage as well then you can use window.location or location.reload*/
+             /*if we want that name on the same time when we enter in input text and press click me then got display on DOM and in storage as well then you can use window.location or location.reload*/
              location.reload(); //-------> so by this, you dont need to refresh the page manually it will do it self and run below function.
+             /*if you don't do this then valuw will go on local storage but can't display on the DOM , but after reload it can be shown but by location.reload() it will show up without refresh*/ 
              
          });
  
@@ -45,8 +46,10 @@
        /*
          you can put whole object in localStorage during json.stringify();
  
-         can put token and get user information.
+         can put token  in local storage and get user information.
  
          Also, get boolean value to see dark or light mode
+
+         You can make as much as you can key-value pair.
        
        */

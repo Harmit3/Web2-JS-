@@ -33,3 +33,4 @@ console.log(age4); //this will print 25 now
 // also in the case of const you must need to assign the value you can't do it like let and var where you can do let a; var a; and assign the value late on.
 //but, can do const age=30 and then add 10 in that via console.log(age+10);
 
+                    

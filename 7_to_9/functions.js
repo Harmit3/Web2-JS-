@@ -1,6 +1,6 @@
 console.log("Hello world!");
 
-//chunk of code which you can call anywhere and peint whatevr you have assign the task in that functions
+//chunk of code which you can call anywhere and print whatevr you have assign the task in that functions
 function Hello(){
     console.log("Hey there! How are you?");
 }
@@ -80,8 +80,8 @@ console.log(plus);
 
 
 //***************************************************//
-//2.argument keyword is not udse in arrow 
-// functions only spread operator will work
+//2.argument keyword is not used in arrow 
+//functions only spread operator will work
 //***************************************************//
 
 
@@ -122,7 +122,7 @@ console.log(f);
 //because js keep functions in the memory on top and then execute another commands
 
 //***************************************************//
-// Hoisting only works in normal function not in arrow function 
+// Hoisting only works in normal function not in arrow function (gives refrence error)
 //**************************************************//
 sayHelloThere();
 
@@ -157,7 +157,7 @@ obj.myFunction();
 const obj1={
     value:21,
     myFunction:()=>{
-        console.log(this);         //window object browser
+        console.log(this);         //window object which is browser
         console.log(this.value);   //undefined
     },
 

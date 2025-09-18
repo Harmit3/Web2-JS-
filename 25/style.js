@@ -57,7 +57,7 @@ function compose(...fns){       //------------------------------> here, it accep
     }
 }
 
-//you cna write down above functions to arrow functions like below
+//you caa write down above functions to arrow functions like below
 /*
  const compose=
    (...fns)=>

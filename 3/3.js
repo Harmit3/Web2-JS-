@@ -13,8 +13,8 @@ console.log(1==1);
 
 //null
 let lastLogIn=null; 
- //not sure what is the value of this but it could be anything and it will take a place in memory
-//while, in undefine, there is no space reserved for that
+//not sure what is the value of this but it could be anything and it will take a place in memory
+//while, in undefined, there is no space reserved for that
 console.log(lastLogIn);
 
 

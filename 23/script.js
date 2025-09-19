@@ -23,11 +23,11 @@ init();        //------> This function called then var inside it declare, then a
 //but,what is the benefit of it?? let's say
 
 function init1(name1){
-   // var name1='Harmit'; --------.ignor this and pass it as argument in init1()
+   // var name1='Harmit'; --------.ignorE this and pass it as argument in init1()
     function displayName1(){        //---> this is closure
         console.log(name1);
     }
-    return displayName1;     //----> change is here u return the function instead calling that so whenever we call init1() it will return the function.
+    return displayName1;     //----> change is here WHEN u return the function instead calling that so whenever we call init1() it will return the function.
 }
 
 init1(); //-----> this will not return anything as it is called it has returned function so u should to contain in the variable and then need to call it
@@ -48,14 +48,17 @@ function adder(num){
     return add;
 }
 
+
+//so you can make utility  functions from closures like addto5 and addto10 as shown in below
+
 const addto5=adder(5);   //---> so, whenever you call this variable it will add 5 in it if you pass the argument inside it
 const addto10=adder(10);
-addto10(2);
-addto5(10);
-addto5(18);
+addto10(2);          //num is 5 and n is 2    ---> 7
+addto5(10);          //num is 5 and n is 10   ---> 15
+addto5(18);          //num is 5 and n is 18   ---> 23
 addto5();  //------>gives NaN
 addto5('5'); //gives 55
-addto5(0);
+addto5(0);           //num is 5 and n is 0   ---> 5
 addto5;  //-------> don't return anything as no parameters passed while in closure and in outer function arg. is passed
 
 

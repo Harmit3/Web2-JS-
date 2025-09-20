@@ -1,0 +1,1 @@
+console.log("Hello there, this is script two to check promisify.");
